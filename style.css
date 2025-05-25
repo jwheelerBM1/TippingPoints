@@ -1,0 +1,361 @@
+/* Universal Box Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #1a237e;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.intro {
+    text-align: center;
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.note {
+    font-size: 0.9em;
+    color: #888;
+    font-style: italic;
+}
+
+/* Slider Section */
+.slider-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.slider-section label {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #0d47a1;
+    font-weight: bold;
+}
+
+#emissionsSlider {
+    width: 80%;
+    max-width: 600px;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 15px;
+    background: linear-gradient(to right, #4CAF50, #FFEB3B, #F44336); /* Green to Yellow to Red */
+    border-radius: 8px;
+    outline: none;
+    opacity: 0.8;
+    transition: opacity .2s;
+    margin: 0 10px;
+}
+
+#emissionsSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #0d47a1;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+#emissionsSlider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #0d47a1;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+#sliderValue {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #0d47a1;
+    margin-left: 15px;
+}
+
+/* Dashboard Layout - Using Flexbox as an alternative */
+.dashboard {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    justify-content: center; /* Distributes items with space around them */
+    gap: 25px; /* Adds space between items */
+}
+
+.panel {
+    /* This is crucial for Flexbox to make panels roughly equal and responsive */
+    flex: 1 1 calc(33.333% - 25px); /* Grows, shrinks, starts at approx 1/3 width minus gap */
+    min-width: 280px; /* Ensures panels don't get too small before wrapping */
+    background-color: #fafafa;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid;
+}
+
+.economic-impact { border-color: #4CAF50; } /* Green for economic */
+.social-impact { border-color: #FFC107; } /* Amber for social */
+.environmental-impact { border-color: #2196F3; } /* Blue for environmental */
+
+.panel h2 {
+    color: #1a237e;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.metric-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.metric {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between; /* To push value to the right */
+    padding: 8px 0;
+    border-bottom: 1px dotted #e0e0e0;
+}
+
+.metric:last-child {
+    border-bottom: none;
+}
+
+.metric .label {
+    font-weight: 500;
+    color: #444;
+    flex-basis: 70%; /* Adjust as needed */
+}
+
+.metric .value {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #0d47a1;
+    flex-basis: 25%; /* Adjust as needed */
+    text-align: right;
+}
+
+/* Graph bars and Gauges */
+.graph-bar-container, .gauge-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.graph-bar {
+    height: 100%;
+    width: 50%; /* Default */
+    background-color: #4CAF50; /* Green for positive */
+    transition: width 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+.graph-bar.negative { background-color: #F44336; } /* Red for negative */
+
+.gauge-fill {
+    height: 100%;
+    width: 0%; /* Default */
+    background-color: #2196F3; /* Blue */
+    transition: width 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+.gauge-fill.high { background-color: #F44336; } /* Red for high values */
+.gauge-fill.moderate { background-color: #FFC107; } /* Amber for moderate values */
+
+
+/* Thermometer Styles */
+.thermometer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50px; /* Width of the whole thermometer */
+    height: 150px; /* Height of the whole thermometer */
+    margin: 15px auto; /* Center it within its parent */
+    position: relative;
+}
+
+.thermometer-stem {
+    width: 15px; /* Width of the stem */
+    height: 100px; /* Height of the stem */
+    background-color: #e0e0e0;
+    border-radius: 7.5px 7.5px 0 0; /* Rounded top */
+    position: relative;
+    overflow: hidden; /* Hide overflow of the fill */
+    display: flex;
+    align-items: flex-end; /* Align fill to the bottom */
+}
+
+.thermometer-fill {
+    width: 100%;
+    height: 0%; /* Initial fill level */
+    background-color: #F44336; /* Default red for hot */
+    transition: height 0.5s ease-out, background-color 0.5s ease-out;
+}
+
+.thermometer-bulb {
+    width: 30px; /* Diameter of the bulb */
+    height: 30px; /* Diameter of the bulb */
+    background-color: #F44336; /* Default red for hot */
+    border-radius: 50%;
+    margin-top: -5px; /* Overlap with stem slightly */
+    z-index: 1; /* Ensure bulb is on top */
+    transition: background-color 0.5s ease-out;
+}
+
+.thermometer-fill.cold { background-color: #2196F3; } /* Blue for cold */
+.thermometer-fill.warm { background-color: #FFC107; } /* Amber for warm */
+.thermometer-fill.hot { background-color: #F44336; } /* Red for hot */
+
+.thermometer-bulb.cold { background-color: #2196F3; }
+.thermometer-bulb.warm { background-color: #FFC107; }
+.thermometer-bulb.hot { background-color: #F44336; }
+
+
+/* Map Placeholder */
+.map-placeholder {
+    text-align: center;
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #e8f5e9;
+    border-radius: 8px;
+    border: 1px dashed #a5d6a7;
+    /* New styles for centering the map placeholder itself */
+    max-width: 350px; /* Give it a max-width to allow centering */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+}
+
+.map-placeholder h3 {
+    color: #388e3c;
+    margin-top: 0;
+}
+
+.map-placeholder img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.map-description {
+    font-size: 0.9em;
+    color: #666;
+}
+
+
+
+/* Tipping Point Warnings */
+.warning-banner, .positive-banner {
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.1em;
+    animation: fadeInOut 0.5s ease-in-out;
+}
+
+.warning-banner {
+    background-color: #ffe0b2; /* Light orange */
+    color: #d32f2f; /* Dark red */
+    border: 2px solid #ef6c00; /* Orange border */
+}
+
+.positive-banner {
+    background-color: #c8e6c9; /* Light green */
+    color: #2e7d32; /* Dark green */
+    border: 2px solid #388e3c; /* Green border */
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeInOut {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* New styles for logo */
+.header-with-logo {
+    display: flex; /* Arranges items in a row */
+    align-items: center; /* Vertically centers logo and title */
+    justify-content: center; /* Centers the logo and title horizontally */
+    margin-bottom: 20px; /* Space below the header */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+}
+
+.site-logo {
+    max-width: 200px; /* Adjust this value to control logo size */
+    height: auto;
+    margin-right: 20px; /* Space between logo and title */
+    margin-bottom: 10px; /* For when items wrap */
+}
+
+/* Adjust the h1 style to fit with the logo */
+.header-with-logo h1 {
+    margin-bottom: 0; /* Remove default margin from h1 */
+    text-align: left; /* Adjust if you want h1 text to align differently */
+}
+
+/* Ensure h1 is centered within its flex container */
+.header-with-logo h1 {
+    text-align: center; /* Keep the h1 text centered if it's the only item */
+}
+
+/* Responsive adjustments for Header */
+@media (max-width: 768px) {
+    .header-with-logo {
+        flex-direction: column;
+        text-align: center;
+    }
+    .site-logo {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    .header-with-logo h1 {
+        text-align: center;
+    }
+}
+
+/* New style for Chart Containers */
+.chart-container {
+    position: relative; /* Important for Chart.js responsiveness */
+    height: 180px; /* Adjust this height as needed for your desired chart size */
+    width: 100%;
+    margin-top: 10px; /* Add some space above the chart */
+}

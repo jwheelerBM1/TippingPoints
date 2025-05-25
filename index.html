@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uruguay Climate Scenario Simulator (Demo)</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header-with-logo">
+            <img src="https://previews.dropbox.com/p/thumb/ACp1HeWRQLbylaA3jrhVNrsJghgJVp1hv0pwUx19FJccMgqaDnFqK7mf5o6WjRKRnEWOYq6UwD404OkDOysw17w5V_vOjQ9KIMA1OoZo_6lkYuIyDr2mXkae-YWsfop8I7WJ1AiNueLxFQ46HAub1hOcxEmFoFhxDs-XKBH8RXBWutdsR-_3jyTRZQ0YwHWe8CvAC1NDuCcA_spBxIPzIXI91Aw7_T0nZYSMp3CmvV7l0OeV3vuQaHnfauyCZ2xtzrXKy_BRKUN9s7FQsd1blojF1KovQXWpQstCVqNZAacoYg/p.png" alt="Bluemvmt Logo" class="site-logo">
+            <h1>Uruguay's Climate Future: Adjust Emissions, Explore Scenarios</h1>
+        </div>
+        <p class="intro">
+            Welcome, climate scientists. Use the slider below to adjust Uruguay's 10-year emissions trajectory
+            and observe the simulated economic, social, and environmental impacts.
+            <br>
+            <span class="note">Note: This is a demo using synthetic data for illustrative purposes only.</span>
+        </p>
+
+        <div class="slider-section">
+            <label for="emissionsSlider">National 10-year Emissions Trajectory:</label>
+            <input type="range" id="emissionsSlider" min="-100" max="50" value="0">
+            <span id="sliderValue">0%</span> (relative to current levels)
+        </div>
+
+        <div id="tippingPointWarning" class="warning-banner hidden">
+            </div>
+        <div id="tippingPointPositive" class="positive-banner hidden">
+            </div>
+
+        <div class="dashboard">
+
+            <div class="panel economic-impact">
+                <h2>Economic Impact</h2>
+                <div class="metric-group">
+                    <div class="metric">
+                        <span class="label">Projected 2035 GDP Change:</span>
+                        <span class="value" id="gdpChange">0%</span>
+                        <div class="chart-container">
+                            <canvas id="gdpChart" width="300" height="150"></canvas>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Cumulative Adaptation Costs (2025-2035):</span>
+                        <span class="value" id="adaptationCosts">$0B</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Agriculture Output Change:</span>
+                        <span class="value" id="agricultureOutput">0%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Energy Prices Shift:</span>
+                        <span class="value" id="energyPrices">0%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Job Creation (New Jobs):</span>
+                        <span class="value" id="jobsCreated">0</span>
+                        <div class="graph-bar-container">
+                            <div class="graph-bar" id="jobsGraph"></div>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Investment Influx (USD):</span>
+                        <span class="value" id="investmentInflux">$0</span>
+                        <div class="graph-bar-container">
+                            <div class="graph-bar" id="investmentGraph"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel social-impact">
+                <h2>Social Impact</h2>
+                <div class="metric-group">
+                    <div class="metric">
+                        <span class="label">Heat-Related Mortality (Change per 100k):</span>
+                        <span class="value" id="heatMortality">0</span>
+                        <div class="gauge-container"><div class="gauge-fill" id="heatGauge"></div></div>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Projected Displaced Population:</span>
+                        <span class="value" id="displacedPopulation">0</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Social Stability Index (0-100):</span>
+                        <span class="value" id="socialStability">50</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Poverty Reduction:</span>
+                        <span class="value" id="povertyReduction">0%</span>
+                        <div class="gauge-container">
+                            <div class="gauge-fill" id="povertyGauge"></div>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Access to Clean Energy:</span>
+                        <span class="value" id="cleanEnergyAccess">0%</span>
+                        <div class="gauge-container">
+                            <div class="gauge-fill" id="energyGauge"></div>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Local Community Engagement:</span>
+                        <span class="value" id="communityEngagement">0%</span>
+                        <div class="gauge-container">
+                            <div class="gauge-fill" id="communityGauge"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel environmental-impact">
+                <h2>Environmental Impact</h2>
+                <div class="metric-group">
+                    <div class="metric">
+                        <span class="label">Uruguay Temperature Increase (2035):</span>
+                        <span class="value" id="tempIncrease">0°C</span>
+                        <div class="thermometer-container">
+                            <div class="thermometer-bulb"></div>
+                            <div class="thermometer-stem">
+                                <div class="thermometer-fill" id="tempThermometerFill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Coastal Sea-Level Rise (2035):</span>
+                        <span class="value" id="seaLevelRise">0 cm</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Extreme Event Frequency (Change):</span>
+                        <span class="value" id="extremeEvents">0%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Biodiversity Index Change:</span>
+                        <span class="value" id="biodiversity">0%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Freshwater Availability Change:</span>
+                        <span class="value" id="waterAvailability">0%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Biodiversity Loss:</span>
+                        <span class="value" id="biodiversityLoss">0%</span>
+                        <div class="gauge-container">
+                            <div class="gauge-fill" id="biodiversityGauge"></div>
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="label">Renewable Energy Adoption:</span>
+                        <span class="value" id="renewableEnergyAdoption">0%</span>
+                        <div class="gauge-container">
+                            <div class="gauge-fill" id="renewableGauge"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-placeholder">
+                    <h3>Simulated Impact Map of Uruguay</h3>
+                    <img src="https://previews.dropbox.com/p/thumb/ACobGnPNn-XOXyBL0lMHYKp7_oeOb0d6pfYmghk7r_kO2SgffvkiJ_a-hDdXLZ2wZOAjjNoW771gE2mQXI_a4Cz5BgdWIwVuH26MQEaN5qyNi1vGq3E7dahjxOKLklBqM2TINQ-S22lhEdJVDlXRHpxTFbVZYzt0a1cxyHiWUtOz03A3K3M1grWhLE8Bxw6Z6zCtnomoh62VemlnVjw3t6Ht_aOPBp5l8_CfbzeyFPX9dFedJUKmB9lLoA6DFhs2hHiSd8hVCfxy5PbYuX4DXW-xoASIXRTRVNEXiI-NV_sB4Q/p.jpeg" alt="Map of Uruguay"> <p class="map-description" id="mapDescription">No significant impact shown yet.</p>
+                </div>
+            </div>
+            </div> </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
